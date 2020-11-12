@@ -18,7 +18,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Setup dependencies
-        run: sudo apt-get install graphviz
+        run: sudo apt-get install graphviz wget && wget -O plantuml.jar "https://sourceforge.net/projects/plantuml/files/latest/download"
+      
+      - name: list dir
+        run: ls -l
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
