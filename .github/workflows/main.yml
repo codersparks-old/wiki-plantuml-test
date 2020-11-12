@@ -38,7 +38,7 @@ jobs:
         run: java -jar plantuml.jar -o main_repo/images/ "main_repo/*/**.puml"
           
       - name: list dir
-        run: ls -l
+        run: ls -l && cat plantuml.jar
         
       - name: list dir
         run: |
