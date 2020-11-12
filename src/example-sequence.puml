@@ -1,0 +1,36 @@
+@startuml
+autonumber
+
+
+loop
+  Alice -> Bob      : Send message
+  |||
+  alt [success]
+    Alice <- Bob    : Ok
+  else [error]
+    Alice <- Bob    : Error
+    destroy Alice
+  end
+end
+note right
+  Looping with message
+  for n iterations
+end note
+
+... After 15 minutes ...
+
+Bob -> Paul       : Send message
+note right
+  Received
+  a message
+end note
+Bob <- Paul       : Ok
+note left
+  Hello world
+  replying
+end note
+
+== Reply ==
+
+Paul -> Alice     : Send message
+@enduml
