@@ -27,7 +27,7 @@ jobs:
         run: sudo apt-get install graphviz wget && wget -O plantuml.jar "https://sourceforge.net/projects/plantuml/files/latest/download"
       
       - name: list dir
-        run: ls -l
+        run: ls -l  && cat plantuml.jar
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
         run: java -jar plantuml.jar -o main_repo/images/ "main_repo/*/**.puml"
           
       - name: list dir
-        run: ls -l && cat plantuml.jar
+        run: ls -l
         
       - name: list dir
         run: |
