@@ -22,6 +22,9 @@ jobs:
         with:
           java-version: 11
           java-package: jre
+      
+      - name: run apt update
+        run: sudo apt-get update
         
       - name: Setup dependencies
         run: sudo apt-get install graphviz plantuml
