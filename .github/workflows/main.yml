@@ -24,10 +24,7 @@ jobs:
           java-package: jre
         
       - name: Setup dependencies
-        run: sudo apt-get install graphviz wget && wget -O plantuml.jar "https://sourceforge.net/projects/plantuml/files/latest/download"
-      
-      - name: list dir
-        run: ls -l  && cat plantuml.jar
+        run: sudo apt-get install graphviz plantuml
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
