@@ -22,12 +22,12 @@ jobs:
         with:
           java-version: 11
           java-package: jre
-      
-      - name: run apt update
-        run: sudo apt-get update
         
       - name: Setup dependencies
-        run: sudo apt-get install graphviz plantuml
+        run: sudo apt-get install graphviz
+        
+      - name: Download plantuml
+        run: curl -JLO http://sourceforge.net/projects/plantuml/files/plantuml.jar/download
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
           path: main_repo
           
       - name: Generate images
-        run: java -jar /opt/plantuml/plantuml.jar -o main_repo/images/ "main_repo/*/**.puml"
+        run: java -jar plantuml.jar -o main_repo/images/ "main_repo/*/**.puml"
           
       - name: list dir
         run: ls -l
