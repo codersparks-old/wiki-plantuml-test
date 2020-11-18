@@ -35,7 +35,7 @@ jobs:
           path: main_repo
           
       - name: Generate images
-        run: java -jar plantuml.jar -o main_repo/images/ "main_repo/*/**.puml"
+        run: java -jar /opt/plantuml/plantuml.jar -o main_repo/images/ "main_repo/*/**.puml"
           
       - name: list dir
         run: ls -l
