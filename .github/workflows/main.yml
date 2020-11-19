@@ -32,10 +32,28 @@ jobs:
         with:
           path: plantuml.jar
           key: ${{ runner.os }}-plantuml
+
+
+      - name: Cache structurizer downloaded files
+        uses: actions/cache@v2
+        id: cache_structurizr
+        with:
+          path: |
+            structurizr/*.jar
+            structurizr/*.sh
+          key: ${{ runner.os }}-structurizr
         
       - name: Download plantuml
         if: steps.cache_plantuml.outputs.cache-hit != 'true'
         run: curl -JLO http://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+
+      - name: Download and extract structurizr
+        if: steps.cache_structurizr.outputs.cache-hit != 'true'
+        run: |
+          mkdir structurizr
+          pushd structurizr
+          wget https://github.com/structurizr/cli/releases/download/v1.5.0/structurizr-cli-1.5.0.zip
+          unzip structurizr-cli-1.5.0.zip
         
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -43,7 +61,7 @@ jobs:
           path: main_repo
           
       - name: Generate images
-        run: java -jar plantuml.jar -o images/ "main_repo/*/**.puml"
+        run: java -jar plantuml.jar -o ../images/ "main_repo/*/**.puml"
           
       - name: list dir
         run: ls -l
