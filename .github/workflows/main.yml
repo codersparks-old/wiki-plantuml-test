@@ -61,7 +61,7 @@ jobs:
           path: main_repo
       
       - name: Parss Structurizr file
-        run: structurizr/structurizr.sh -f plantuml -o ../structurizr.out/ -w main_repo/src/big-bank-struct/workspace.dsl
+        run: structurizr/structurizr.sh export  -f plantuml -o ../structurizr.out/ -w main_repo/src/big-bank-struct/workspace.dsl
       - name: Generate images
         run: java -jar plantuml.jar -o ../images/ "main_repo/*/**.puml"
           
