@@ -1,0 +1,4 @@
+<map id="example-sequence_map" name="example-sequence_map">
+<area shape="rect" id="id1" href="error" title="error" alt="" coords="25,181,56,194"/>
+<area shape="rect" id="id2" href="success" title="success" alt="" coords="99,136,150,149"/>
+</map>
