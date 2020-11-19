@@ -51,13 +51,10 @@ jobs:
       - name: commit changes if new images have been created
         run: |
           pushd main_repo
-          git update-index --refresh
-          git diff-index --quiet HEAD -- || (
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"  
-            git add -A
-            git commit -am "Auto commit after generating images"
-          )
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"  
+          git add -A
+          git commit -am "Auto commit after generating images" || echo "No changes to commit"
           popd
           
       - name: Push changes
