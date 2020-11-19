@@ -29,7 +29,6 @@ note left
   Hello world
   replying
 end note
-Paul -> Bob       : Testing
 == Reply ==
 
 Paul -> Alice     : Send message
