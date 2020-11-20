@@ -76,6 +76,7 @@ jobs:
         run: ls -l
         
       # The following two are only performed if its a push event and on the main branch (i.e. its the release)
+      # We forcing and add of any file under generated folder as we want to ensure that this is only added on main branch
       - name: commit changes if new images have been created on main branch
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
@@ -83,6 +84,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"  
           git add -A
+          for generated_file in $(find ./generated/)
+          do
+            git add -f $generated_file
+          done
           git commit -am "Auto commit after generating images" || echo "No changes to commit"
           popd
           
