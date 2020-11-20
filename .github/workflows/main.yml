@@ -6,7 +6,6 @@ name: CI
 # events but only for the main branch
 on:
   push:
-    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -60,15 +59,25 @@ jobs:
         with:
           path: main_repo
       
-      - name: Parss Structurizr file
-        run: structurizr/structurizr.sh export  -f plantuml -o ../structurizr.out/ -w main_repo/src/big-bank-struct/workspace.dsl
+      - name: Parse Structurizr files
+        run: structurizr/structurizr.sh export -f plantuml -o main_repo/src/structurizr/ -w main_repo/src/big-bank-struct/workspace.dsl
+
+      # To provide structure to out generated puml images we need to do some bash magic to output into directories
       - name: Generate images
-        run: java -jar plantuml.jar -o ../images/ "main_repo/*/**.puml"
+        run: |
+          pushd main_repo
+          for puml_file in $(find main_repo -name "*.puml" )
+          do 
+            echo $puml_file
+            java -jar ~/Downloads/plantuml.jar -o $(pwd)/generated/images/$(dirname $( echo $puml_file | cut -d"/" -f3-))/ $puml_file ||  ! break
+          done
           
       - name: list dir
         run: ls -l
         
-      - name: commit changes if new images have been created
+      # The following two are only performed if its a push event and on the main branch (i.e. its the release)
+      - name: commit changes if new images have been created on main branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           pushd main_repo
           git config --local user.email "action@github.com"
@@ -78,6 +87,7 @@ jobs:
           popd
           
       - name: Push changes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

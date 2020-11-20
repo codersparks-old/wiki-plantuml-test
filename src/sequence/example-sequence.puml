@@ -3,7 +3,7 @@ autonumber
 
 
 loop
-  Alice -> Bob      : Send message
+  Alice -> Bob       : Send message
   |||
   alt [success]
     Alice <- Bob    : Ok
