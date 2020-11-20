@@ -60,17 +60,18 @@ jobs:
           path: main_repo
       
       - name: Parse Structurizr files
-        run: structurizr/structurizr.sh export -f plantuml -o main_repo/src/structurizr/ -w main_repo/src/big-bank-struct/workspace.dsl
+        run: structurizr/structurizr.sh export -f plantuml -o main_repo/generated/structurizr/ -w main_repo/src/big-bank-struct/workspace.dsl
 
       # To provide structure to out generated puml images we need to do some bash magic to output into directories
       - name: Generate images
         run: |
           pushd main_repo
-          for puml_file in $(find main_repo -name "*.puml" )
+          for puml_file in $(find ./ -name "*.puml" )
           do 
             echo $puml_file
             java -jar ~/Downloads/plantuml.jar -o $(pwd)/generated/images/$(dirname $( echo $puml_file | cut -d"/" -f3-))/ $puml_file ||  ! break
           done
+          popd
           
       - name: list dir
         run: ls -l
