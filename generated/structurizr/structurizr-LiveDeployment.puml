@@ -50,17 +50,22 @@ skinparam node<<70>> {
   FontColor #000000
   BorderColor #000000
 }
-skinparam node<<82>> {
-  BackgroundColor #ffffff
-  FontColor #000000
-  BorderColor #000000
-}
 skinparam rectangle<<71>> {
   BackgroundColor #438dd5
   FontColor #ffffff
   BorderColor #2E6295
 }
+skinparam node<<82>> {
+  BackgroundColor #ffffff
+  FontColor #000000
+  BorderColor #000000
+}
 skinparam node<<83>> {
+  BackgroundColor #ffffff
+  FontColor #000000
+  BorderColor #000000
+}
+skinparam node<<73>> {
   BackgroundColor #ffffff
   FontColor #000000
   BorderColor #000000
@@ -69,11 +74,6 @@ skinparam database<<84>> {
   BackgroundColor #438dd5
   FontColor #ffffff
   BorderColor #2E6295
-}
-skinparam node<<73>> {
-  BackgroundColor #ffffff
-  FontColor #000000
-  BorderColor #000000
 }
 skinparam node<<63>> {
   BackgroundColor #ffffff
