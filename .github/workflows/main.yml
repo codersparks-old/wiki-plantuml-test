@@ -65,13 +65,12 @@ jobs:
       # To provide structure to out generated puml images we need to do some bash magic to output into directories
       - name: Generate images
         run: |
-          pushd main_repo
-          for puml_file in $(find ./ -name "*.puml" )
+          for puml_file in $(find main_repo/ -name "*.puml" )
           do 
             echo $puml_file
-            java -jar ~/Downloads/plantuml.jar -o $(pwd)/generated/images/$(dirname $( echo $puml_file | cut -d"/" -f3-))/ $puml_file ||  ! break
+            echo $(pwd)/main_repo/generated/images/$(dirname $( echo $puml_file | cut -d"/" -f3-))/
+            java -jar plantuml.jar -o $(pwd)/main_repo/generated/images/$(dirname $( echo $puml_file | cut -d"/" -f3-))/ $puml_file ||  ! break
           done
-          popd
           
       - name: list dir
         run: ls -l
