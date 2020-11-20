@@ -1,0 +1,73 @@
+@startuml(id=Containers)
+title Internet Banking System - Containers
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<11>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+skinparam rectangle<<1>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052E56
+}
+skinparam rectangle<<4>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6B6B6B
+}
+skinparam rectangle<<5>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6B6B6B
+}
+skinparam database<<18>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+skinparam rectangle<<8>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+skinparam rectangle<<9>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+skinparam rectangle<<10>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system" <<5>> as 5
+rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<4>> as 4
+rectangle "==Personal Banking Customer\n<size:10>[Person]</size>\n\nA customer of the bank, with personal bank accounts." <<1>> as 1
+package "Internet Banking System\n[Software System]" {
+  rectangle "==API Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nProvides Internet banking functionality via a JSON/HTTPS API." <<11>> as 11
+  database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<18>> as 18
+  rectangle "==Mobile App\n<size:10>[Container: Xamarin]</size>\n\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<9>> as 9
+  rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<8>> as 8
+  rectangle "==Web Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nDelivers the static content and the Internet banking single page application." <<10>> as 10
+}
+11 .[#707070].> 18 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+11 .[#707070].> 5 : "Sends e-mail using"
+11 .[#707070].> 4 : "Makes API calls to\n<size:8>[XML/HTTPS]</size>"
+5 .[#707070].> 1 : "Sends e-mails to"
+9 .[#707070].> 11 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+1 .[#707070].> 9 : "Views account balances, and makes payments using"
+1 .[#707070].> 8 : "Views account balances, and makes payments using"
+1 .[#707070].> 10 : "Visits bigbank.com/ib using\n<size:8>[HTTPS]</size>"
+8 .[#707070].> 11 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+10 .[#707070].> 8 : "Delivers to the customer's web browser"
+@enduml
