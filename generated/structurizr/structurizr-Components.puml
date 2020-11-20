@@ -1,0 +1,94 @@
+@startuml(id=Components)
+title Internet Banking System - API Application - Components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+skinparam rectangle<<12>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5D82A8
+}
+skinparam rectangle<<13>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5D82A8
+}
+skinparam rectangle<<14>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5D82A8
+}
+skinparam rectangle<<4>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6B6B6B
+}
+skinparam rectangle<<15>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5D82A8
+}
+skinparam rectangle<<16>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5D82A8
+}
+skinparam rectangle<<5>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6B6B6B
+}
+skinparam rectangle<<17>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5D82A8
+}
+skinparam database<<18>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+skinparam rectangle<<8>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+skinparam rectangle<<9>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2E6295
+}
+database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<18>> as 18
+rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system" <<5>> as 5
+rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<4>> as 4
+rectangle "==Mobile App\n<size:10>[Container: Xamarin]</size>\n\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<9>> as 9
+rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<8>> as 8
+package "API Application\n[Container: Java and Spring MVC]" {
+  rectangle "==Accounts Summary Controller\n<size:10>[Component: Spring MVC Rest Controller]</size>\n\nProvides customers with a summary of their bank accounts." <<13>> as 13
+  rectangle "==E-mail Component\n<size:10>[Component: Spring Bean]</size>\n\nSends e-mails to users." <<17>> as 17
+  rectangle "==Mainframe Banking System Facade\n<size:10>[Component: Spring Bean]</size>\n\nA facade onto the mainframe banking system." <<16>> as 16
+  rectangle "==Reset Password Controller\n<size:10>[Component: Spring MVC Rest Controller]</size>\n\nAllows users to reset their passwords with a single use URL." <<14>> as 14
+  rectangle "==Security Component\n<size:10>[Component: Spring Bean]</size>\n\nProvides functionality related to signing in, changing passwords, etc." <<15>> as 15
+  rectangle "==Sign In Controller\n<size:10>[Component: Spring MVC Rest Controller]</size>\n\nAllows users to sign in to the Internet Banking System." <<12>> as 12
+}
+13 .[#707070].> 16 : "Uses"
+17 .[#707070].> 5 : "Sends e-mail using"
+16 .[#707070].> 4 : "Makes API calls to\n<size:8>[XML/HTTPS]</size>"
+9 .[#707070].> 13 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+9 .[#707070].> 14 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+9 .[#707070].> 12 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+14 .[#707070].> 17 : "Uses"
+14 .[#707070].> 15 : "Uses"
+15 .[#707070].> 18 : "Reads from and writes to\n<size:8>[JDBC]</size>"
+12 .[#707070].> 15 : "Uses"
+8 .[#707070].> 13 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+8 .[#707070].> 14 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+8 .[#707070].> 12 : "Makes API calls to\n<size:8>[JSON/HTTPS]</size>"
+@enduml
