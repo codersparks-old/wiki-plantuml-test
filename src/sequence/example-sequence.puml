@@ -3,6 +3,7 @@ autonumber
 
 
 loop
+  Bob -> Alice       : Demo message
   Alice -> Bob       : Send message
   |||
   alt [success]
