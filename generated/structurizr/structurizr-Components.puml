@@ -25,15 +25,15 @@ skinparam rectangle<<14>> {
   FontColor #000000
   BorderColor #5D82A8
 }
-skinparam rectangle<<15>> {
-  BackgroundColor #85bbf0
-  FontColor #000000
-  BorderColor #5D82A8
-}
 skinparam rectangle<<4>> {
   BackgroundColor #999999
   FontColor #ffffff
   BorderColor #6B6B6B
+}
+skinparam rectangle<<15>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5D82A8
 }
 skinparam rectangle<<16>> {
   BackgroundColor #85bbf0
