@@ -59,6 +59,9 @@ jobs:
         with:
           path: main_repo
       
+      - name: Check python version
+        run: python --version
+        
       - name: Parse Structurizr files
         run: structurizr/structurizr.sh export -f plantuml -o main_repo/generated/structurizr/ -w main_repo/src/big-bank-struct/workspace.dsl
 
